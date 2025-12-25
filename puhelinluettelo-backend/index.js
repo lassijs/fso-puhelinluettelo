@@ -79,17 +79,17 @@ app.post('/api/persons', (request, response, next) => {
     name: body.name,
     number: body.number
   })
-  
+
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 
 // Update phone number
 app.put('/api/persons/:id', (request, response, next) => {
-  const {name, number} = request.body
+  const { name, number } = request.body
 
   Person.findById(request.params.id)
     .then(person => {
@@ -110,10 +110,10 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
-    response.status(400).send({error: 'Malformatted id'})
+    response.status(400).send({ error: 'Malformatted id' })
   }
   else if (error.name === 'ValidationError') {
-    return response.status(400).json({error: error.message})
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
